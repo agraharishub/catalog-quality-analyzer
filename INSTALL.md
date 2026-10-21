@@ -25,8 +25,7 @@ Commerce Admin. You don't need to download code, use a command line or edit conf
 13. [Everyday use](#13-everyday-use)
 14. [Change settings or remove the app](#14-change-settings-or-remove-the-app)
 15. [Troubleshooting](#15-troubleshooting)
-16. [Developer setup (from source)](#16-developer-setup-from-source)
-17. [Support](#17-support)
+16. [Support](#16-support)
 
 ---
 
@@ -176,7 +175,8 @@ app automatically: you never enter them.
 
 **Applies to:** ✅ SaaS (nothing to fill in) · ✅ PaaS (optional Integration settings)
 
-**SaaS:** there are no settings to fill in. Continue with section 7.
+**SaaS:** there are no settings to fill in. The form shows a **Store Base URL** field that is already filled in;
+leave it as it is. Continue with section 7.
 
 **PaaS:** on the **Catalog Quality Analyzer** card, click **Configure**, fill in the settings below and click **Save**.
 Values apply within about a minute and are stored encrypted.
@@ -202,7 +202,7 @@ storefront-visible products without saving fixes.
 3. When it finishes, the card shows **Installed**.
 
 If the card shows **Partially Installed**, open the details to see the failed step and click **Install** again. If it
-keeps failing, contact support (section 17).
+keeps failing, contact support (section 16).
 
 ---
 
@@ -379,62 +379,17 @@ average of all product scores.
 | The scan shows **completed** with "Scan completed with some worker errors"               | Part of the catalog couldn't be read; the scan kept every product it did read. The **Workers** table shows each failed part and why. Run the scan again; if the same part keeps failing, contact support with that error. |
 | The scan stays at **running** and the **Done** counts stop changing                      | Keep the page open: a part that stops reporting is marked failed after about 12 minutes and the scan then finishes on its own (see the row above). |
 | Fewer products scanned than in the catalog                                               | Without Admin API credentials only storefront-visible products are scanned, and storefront search stops at about 10,000 products (section 12). PaaS: fill in the Integration in **Configure** (section 6). |
-| **Configure** doesn't load or save (error 500 "Failed to decrypt value")                  | The saved settings were encrypted with a different key, usually after the app was redeployed with a new `AIO_COMMERCE_CONFIG_ENCRYPTION_KEY`. Contact support (section 17) to clear the saved settings, then enter the values again. |
+| **Configure** doesn't load or save (error 500 "Failed to decrypt value")                  | The saved settings can no longer be read. Contact support (section 16) to clear the saved settings, then enter the values again. |
 | **Fix** shows "Could not load the current value from Commerce"                           | PaaS: fill in all four Integration values in **Configure** (section 6) and check that the integration is **Active** with access to **Products**. SaaS: contact support.                                           |
 | **Save to Commerce** fails with "Saving fixes needs the Integration credentials…"        | PaaS: create the Integration (section 4) and enter its four values in **Configure**.                                                                                                                             |
 | **Save to Commerce** fails with "Commerce API 401" or "403"                              | PaaS: the Integration is inactive, was re-generated, or lacks access to **Catalog → Inventory → Products**. Re-activate it or update the four values in **Configure**.                                              |
 | The score doesn't change after editing a product in the Admin                            | The storefront catalog can take a few minutes to update. Click **Re-check from Commerce** again later, or wait for the next scan.                                                                                 |
 | **Re-check** says the product was "not found in Commerce"                                | The product is disabled, not visible on the storefront, or not indexed yet.                                                                                                                                       |
-| **Export** fails                                                                         | Click the export button again to retry. If it keeps failing, contact support (section 17) with the error shown.                                                                                                   |
+| **Export** fails                                                                         | Click the export button again to retry. If it keeps failing, contact support (section 16) with the error shown.                                                                                                   |
 
 ---
 
-## 16. Developer setup (from source)
-
-**Applies to:** developers who build and deploy the app themselves, not merchants installing it from Adobe Exchange.
-
-Requirements: Node.js 24, the Adobe I/O CLI (`npm install -g @adobe/aio-cli`) and an App Builder project with an
-OAuth Server-to-Server credential.
-
-1. Install the dependencies:
-
-   ```bash
-   npm install
-   ```
-
-2. Select your organization, project and workspace. This writes the Runtime and credential values into `.env`:
-
-   ```bash
-   aio app use
-   ```
-
-3. Create your environment file from the template and fill in the empty values (each one is explained in the file):
-
-   ```bash
-   cp env.dist .env
-   ```
-
-   If `aio app use` already created `.env`, copy only the missing variables from `env.dist` into it instead of
-   overwriting it.
-
-   Generate `AIO_COMMERCE_CONFIG_ENCRYPTION_KEY` once with `npx aio-commerce-lib-config encryption setup` and keep
-   it. If you change it after settings were saved in **Configure**, the saved values can no longer be decrypted and
-   the Configure page fails until they are cleared and entered again.
-
-4. Run the tests and deploy:
-
-   ```bash
-   npm test
-   aio app deploy
-   ```
-
-5. Associate, configure and install the app in your Commerce Admin (sections 5 to 7).
-
-Build details, local UI development and the architecture are in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
-
----
-
-## 17. Support
+## 16. Support
 
 **Applies to:** ✅ SaaS · ✅ PaaS
 

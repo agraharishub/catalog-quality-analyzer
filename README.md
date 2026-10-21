@@ -62,7 +62,8 @@ command line, and no store credentials are needed to scan.
 See [**INSTALL.md**](INSTALL.md) for every step in detail, everyday use and troubleshooting.
 
 Settings in **Configure**: on **PaaS**, the four Integration keys and tokens that let the app save fixes (stored
-encrypted). On **SaaS** there is nothing to fill in. The store URL and whether you're on SaaS or PaaS are sent by
+encrypted). On **SaaS** there is nothing to fill in (the
+**Store Base URL** field is filled in automatically; leave it as it is). The store URL and whether you're on SaaS or PaaS are sent by
 Commerce when you associate the app, so you never enter them.
 
 ### ⚠️ Good to Know
@@ -85,14 +86,6 @@ Commerce when you associate the app, so you never enter them.
 - **If part of a scan fails** (for example the store doesn't answer, or a part runs into the time limit), the scan
   still finishes with the products it could read and is marked **completed with some worker errors**.
 - **SaaS:** category checks are skipped, because the SaaS catalog service doesn't return product categories to the app.
-
----
-
-## 🛠️ For Developers
-
-Build, run and deploy instructions, environment variables and the architecture are in
-[**docs/DEVELOPMENT.md**](docs/DEVELOPMENT.md). See also [docs/API.md](docs/API.md) and
-[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ---
 
